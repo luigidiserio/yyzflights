@@ -342,9 +342,9 @@ function HomePage() {
                     data-testid="search-flights-btn"
                   >
                     {loading ? (
-                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Searching Flights...</>
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Preparing Search...</>
                     ) : (
-                      <><Search className="mr-2 h-4 w-4" /> Search Flights</>
+                      <><Search className="mr-2 h-4 w-4" /> Search Flights on TravelPayouts</>
                     )}
                   </Button>
                 </form>
