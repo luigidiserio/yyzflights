@@ -564,12 +564,25 @@ function HomePage() {
                         size="sm" 
                         variant="outline"
                         onClick={() => {
-                          setSearchForm({...searchForm, destination: destination.destination});
-                          setActiveTab('search');
+                          // Build search URL for this destination
+                          const searchParams = new URLSearchParams({
+                            origin_iata: 'YYZ',
+                            destination_iata: destination.destination,
+                            departure_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 30 days from now
+                            adults: '1',
+                            children: '0',
+                            infants: '0',
+                            trip_class: 'Y',
+                            marker: 'yyzflights'
+                          });
+                          
+                          const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
+                          window.open(searchUrl, '_blank');
+                          toast.success(`Searching flights to ${destination.city_name}...`);
                         }}
                         data-testid={`select-destination-${destination.destination}`}
                       >
-                        Select
+                        Search Flights
                       </Button>
                     </div>
                   </CardContent>
