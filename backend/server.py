@@ -77,15 +77,12 @@ class FlightSearchRequest(BaseModel):
             raise ValueError('Departure date cannot be more than 365 days in the future')
         return v
     
-    @root_validator
-    def validate_return_date(cls, values):
-        departure_date = values.get('departure_date')
-        return_date = values.get('return_date')
-        
-        if return_date and departure_date:
-            if return_date <= departure_date:
+    @model_validator(mode='after')
+    def validate_return_date(self):
+        if self.return_date and self.departure_date:
+            if self.return_date <= self.departure_date:
                 raise ValueError('Return date must be after departure date')
-        return values
+        return self
 
 class FlightSegment(BaseModel):
     origin: str
