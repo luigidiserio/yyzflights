@@ -528,41 +528,73 @@ function HomePage() {
                 </p>
               </div>
               
-              {/* Tiqets Widget Container */}
-              <div className="bg-gray-50 rounded-lg p-6 text-center">
-                <div 
-                  id="tiqets-widget-container"
-                  className="min-h-[400px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center"
-                >
-                  <div className="text-center space-y-4">
-                    <div className="text-4xl">🎭</div>
-                    <h4 className="text-xl font-semibold text-gray-700">Toronto Attractions & Tours</h4>
-                    <p className="text-gray-600 max-w-md">
-                      Discover CN Tower, Casa Loma, Ripley's Aquarium, Toronto Islands, and more!
-                    </p>
-                    <Button 
-                      className="bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
-                      onClick={() => window.open('https://www.tiqets.com/en/toronto-c72013/', '_blank')}
-                      data-testid="tiqets-toronto-btn"
-                    >
-                      Browse Toronto Attractions
-                    </Button>
-                  </div>
-                </div>
+              {/* Tiqets Widget Integration */}
+              <div className="bg-white rounded-lg border-2 border-gray-200 overflow-hidden">
+                <iframe
+                  src="https://www.tiqets.com/widgets/search?affiliateId=yyzflights&cityId=72013&theme=light&language=en"
+                  width="100%"
+                  height="500"
+                  frameBorder="0"
+                  title="Toronto Attractions by Tiqets"
+                  className="rounded-lg"
+                  onError={() => {
+                    // Fallback content if iframe fails
+                    console.log('Tiqets iframe failed to load');
+                  }}
+                />
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                {[
-                  { name: "CN Tower", icon: "🏗️" },
-                  { name: "Casa Loma", icon: "🏰" },
-                  { name: "Royal Ontario Museum", icon: "🏛️" },
-                  { name: "Toronto Islands", icon: "🏝️" }
-                ].map((attraction, index) => (
-                  <div key={index} className="text-center p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
-                    <div className="text-2xl mb-2">{attraction.icon}</div>
-                    <div className="text-sm font-medium text-gray-700">{attraction.name}</div>
-                  </div>
-                ))}
+              {/* Featured Toronto Attractions */}
+              <div className="mt-6">
+                <h4 className="text-xl font-semibold text-center mb-4 text-gray-800">🏙️ Top Toronto Attractions</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { 
+                      name: "CN Tower", 
+                      icon: "🏗️", 
+                      price: "From $40 CAD",
+                      url: "https://www.tiqets.com/en/toronto/cn-tower-c77848/?partner=yyzflights"
+                    },
+                    { 
+                      name: "Casa Loma", 
+                      icon: "🏰", 
+                      price: "From $35 CAD",
+                      url: "https://www.tiqets.com/en/toronto/casa-loma-c78115/?partner=yyzflights"
+                    },
+                    { 
+                      name: "Royal Ontario Museum", 
+                      icon: "🏛️", 
+                      price: "From $28 CAD",
+                      url: "https://www.tiqets.com/en/toronto/royal-ontario-museum-c72013/?partner=yyzflights"
+                    },
+                    { 
+                      name: "Ripley's Aquarium", 
+                      icon: "🐠", 
+                      price: "From $45 CAD",
+                      url: "https://www.tiqets.com/en/toronto/ripleys-aquarium-c78080/?partner=yyzflights"
+                    }
+                  ].map((attraction, index) => (
+                    <Card 
+                      key={index} 
+                      className="text-center p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:scale-105"
+                      onClick={() => window.open(attraction.url, '_blank')}
+                    >
+                      <div className="text-3xl mb-2">{attraction.icon}</div>
+                      <div className="text-sm font-medium text-gray-800 mb-1">{attraction.name}</div>
+                      <div className="text-xs text-red-600 font-semibold">{attraction.price}</div>
+                    </Card>
+                  ))}
+                </div>
+                
+                <div className="text-center mt-6">
+                  <Button 
+                    className="bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
+                    onClick={() => window.open('https://www.tiqets.com/en/toronto-c72013/?partner=yyzflights', '_blank')}
+                    data-testid="view-all-attractions-btn"
+                  >
+                    🎭 View All Toronto Attractions
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
