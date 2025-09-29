@@ -1,34 +1,312 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  line-height: 1.6;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #fef2f2 100%);
 }
 
-.App-link {
-    color: #61dafb;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #dc2626, #2563eb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #b91c1c, #1d4ed8);
+}
+
+/* Button hover effects */
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Card hover effects */
+.transition-shadow {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.transition-all {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Gradient text animations */
+.bg-clip-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* Custom focus styles for accessibility */
+.focus\:ring-2:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:ring-red-500:focus {
+  --tw-ring-color: #ef4444;
+}
+
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: #3b82f6;
+}
+
+/* Loading animation */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom button styles */
+.btn-canadian {
+  background: linear-gradient(135deg, #dc2626, #2563eb);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-canadian:hover {
+  background: linear-gradient(135deg, #b91c1c, #1d4ed8);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.btn-canadian:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Flight card animations */
+.flight-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Status badge colors */
+.status-on-time {
+  background-color: #10b981;
+  color: white;
+}
+
+.status-delayed {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.status-cancelled {
+  background-color: #ef4444;
+  color: white;
+}
+
+.status-departed {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Canadian flag colors */
+.text-canadian-red {
+  color: #ff0000;
+}
+
+.bg-canadian-red {
+  background-color: #ff0000;
+}
+
+.border-canadian-red {
+  border-color: #ff0000;
+}
+
+/* Toronto Blue Jays blue */
+.text-jays-blue {
+  color: #134e92;
+}
+
+.bg-jays-blue {
+  background-color: #134e92;
+}
+
+/* Maple Leafs blue */
+.text-leafs-blue {
+  color: #00205b;
+}
+
+.bg-leafs-blue {
+  background-color: #00205b;
+}
+
+/* Hero section background overlay */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(220, 38, 38, 0.1) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(37, 99, 235, 0.1) 100%
+  );
+}
+
+/* Responsive text scaling */
+@media (max-width: 768px) {
+  .text-5xl {
+    font-size: 2.5rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-xl {
+    font-size: 1.125rem;
+  }
+}
+
+/* Form input focus styles */
+input[type="date"]:focus,
+select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Destination card hover effects */
+.destination-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.destination-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.destination-card img {
+  transition: transform 0.3s ease;
+}
+
+.destination-card:hover img {
+  transform: scale(1.1);
+}
+
+/* Price highlighting */
+.price-highlight {
+  background: linear-gradient(135deg, #2563eb, #dc2626);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible improvements */
+.focus-visible:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gradient-to-r {
+    background: #000 !important;
+  }
+  
+  .text-gray-600 {
+    color: #000 !important;
+  }
+  
+  .border-gray-300 {
+    border-color: #000 !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .bg-gradient-to-r,
+  .bg-gradient-to-b {
+    background: white !important;
+  }
 }
