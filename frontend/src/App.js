@@ -75,25 +75,36 @@ function HomePage() {
     }
 
     setLoading(true);
+    
     try {
-      const searchData = {
-        origin: searchForm.origin,
-        destination: searchForm.destination,
-        departure_date: searchForm.departureDate.toISOString().split('T')[0],
-        return_date: searchForm.returnDate ? searchForm.returnDate.toISOString().split('T')[0] : null,
-        adults: searchForm.adults,
-        children: searchForm.children,
-        currency: 'CAD'
-      };
+      // Build TravelPayouts search URL parameters
+      const searchParams = new URLSearchParams({
+        origin_iata: searchForm.origin,
+        destination_iata: searchForm.destination,
+        departure_at: searchForm.departureDate.toISOString().split('T')[0],
+        adults: searchForm.adults.toString(),
+        children: searchForm.children.toString(),
+        infants: '0',
+        trip_class: 'Y', // Economy
+        marker: 'yyzflights'
+      });
 
-      const response = await axios.post(`${API}/flights/search`, searchData);
-      if (response.data.success) {
-        setSearchResults(response.data.data);
-        toast.success(`Found ${response.data.data.flights.length} flight options!`);
+      // Add return date if it's a round trip
+      if (searchForm.returnDate) {
+        searchParams.append('return_at', searchForm.returnDate.toISOString().split('T')[0]);
       }
+
+      // Redirect to your TravelPayouts white-label search
+      const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
+      
+      toast.success('Redirecting to flight search...');
+      
+      // Open in new tab to maintain the main site
+      window.open(searchUrl, '_blank');
+      
     } catch (error) {
       console.error('Flight search error:', error);
-      toast.error('Error searching flights. Please try again.');
+      toast.error('Error preparing flight search. Please try again.');
     } finally {
       setLoading(false);
     }
