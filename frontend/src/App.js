@@ -263,6 +263,13 @@ function HomePage() {
                           <SelectItem value="YVR">YVR - Vancouver, Canada</SelectItem>
                           <SelectItem value="MIA">MIA - Miami, USA</SelectItem>
                           <SelectItem value="FCO">FCO - Rome, Italy</SelectItem>
+                          <SelectItem value="SYD">SYD - Sydney, Australia</SelectItem>
+                          <SelectItem value="DXB">DXB - Dubai, UAE</SelectItem>
+                          <SelectItem value="BOM">BOM - Mumbai, India</SelectItem>
+                          <SelectItem value="AMS">AMS - Amsterdam, Netherlands</SelectItem>
+                          <SelectItem value="FRA">FRA - Frankfurt, Germany</SelectItem>
+                          <SelectItem value="MAD">MAD - Madrid, Spain</SelectItem>
+                          <SelectItem value="BCN">BCN - Barcelona, Spain</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
