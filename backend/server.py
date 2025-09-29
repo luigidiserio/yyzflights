@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, validator, root_validator
+from pydantic import BaseModel, Field, validator, model_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime, date, timedelta
 from dotenv import load_dotenv
