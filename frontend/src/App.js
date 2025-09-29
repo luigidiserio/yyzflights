@@ -514,6 +514,89 @@ function HomePage() {
             </div>
           </section>
         )}
+
+        {/* Toronto Attractions - Tiqets Widget */}
+        <section className="mt-16">
+          <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+            🍁 Discover Toronto Attractions
+          </h3>
+          <Card className="shadow-lg border-t-4 border-t-red-500">
+            <CardContent className="p-6">
+              <div className="text-center mb-6">
+                <p className="text-gray-600 text-lg">
+                  Before you fly, explore what Toronto has to offer! Book attractions and experiences with our partner Tiqets.
+                </p>
+              </div>
+              
+              {/* Tiqets Widget Container */}
+              <div className="bg-gray-50 rounded-lg p-6 text-center">
+                <div 
+                  id="tiqets-widget-container"
+                  className="min-h-[400px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center"
+                >
+                  <div className="text-center space-y-4">
+                    <div className="text-4xl">🎭</div>
+                    <h4 className="text-xl font-semibold text-gray-700">Toronto Attractions & Tours</h4>
+                    <p className="text-gray-600 max-w-md">
+                      Discover CN Tower, Casa Loma, Ripley's Aquarium, Toronto Islands, and more!
+                    </p>
+                    <Button 
+                      className="bg-gradient-to-r from-red-500 to-blue-600 hover:from-red-600 hover:to-blue-700"
+                      onClick={() => window.open('https://www.tiqets.com/en/toronto-c72013/', '_blank')}
+                      data-testid="tiqets-toronto-btn"
+                    >
+                      Browse Toronto Attractions
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                {[
+                  { name: "CN Tower", icon: "🏗️" },
+                  { name: "Casa Loma", icon: "🏰" },
+                  { name: "Royal Ontario Museum", icon: "🏛️" },
+                  { name: "Toronto Islands", icon: "🏝️" }
+                ].map((attraction, index) => (
+                  <div key={index} className="text-center p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
+                    <div className="text-2xl mb-2">{attraction.icon}</div>
+                    <div className="text-sm font-medium text-gray-700">{attraction.name}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Alternative Search - Trip.com */}
+        <section className="mt-12 mb-8">
+          <div className="text-center space-y-6">
+            <Separator className="my-8" />
+            <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-orange-200 rounded-xl p-6">
+              <h4 className="text-xl font-bold text-gray-800 mb-3">
+                😞 NOT HAPPY WITH RESULTS?
+              </h4>
+              <p className="text-gray-600 mb-4">
+                Try our alternative search partner for potentially different prices and options
+              </p>
+              <Button 
+                className="bg-gradient-to-r from-orange-500 to-yellow-600 hover:from-orange-600 hover:to-yellow-700 text-white font-semibold px-8 py-3 text-lg shadow-lg"
+                onClick={() => {
+                  // Build Trip.com search URL - they use different parameter format
+                  const tripUrl = `https://www.trip.com/flights?dcity=YYZ&acity=&date1=${searchForm.departureDate ? searchForm.departureDate.toISOString().split('T')[0] : ''}&date2=${searchForm.returnDate ? searchForm.returnDate.toISOString().split('T')[0] : ''}&adult=${searchForm.adults}&child=${searchForm.children}`;
+                  window.open(tripUrl, '_blank');
+                  toast.success('Opening alternative search on Trip.com...');
+                }}
+                data-testid="trip-com-search-btn"
+              >
+                🌟 TRY TRIP.COM - Alternative Search
+              </Button>
+              <p className="text-xs text-gray-500 mt-3">
+                Different platform, potentially different deals and airlines
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
