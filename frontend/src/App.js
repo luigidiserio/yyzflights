@@ -222,7 +222,7 @@ function HomePage() {
                   Find Your Perfect Flight
                 </CardTitle>
                 <CardDescription>
-                  Search for flights from Toronto to destinations worldwide with our TravelPayouts integration
+                  Search for flights from Toronto and get redirected to our TravelPayouts booking platform for the best deals
                 </CardDescription>
               </CardHeader>
               <CardContent>
