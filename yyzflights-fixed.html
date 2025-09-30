@@ -618,29 +618,31 @@
                             <!-- Destination -->
                             <div class="form-group">
                                 <label>To</label>
-                                <div class="input-with-icon">
-                                    <input
-                                        type="text"
-                                        id="destination"
-                                        placeholder="Enter destination (e.g., LAX, LHR, CDG)"
-                                        class="form-input"
-                                        maxlength="3"
-                                        style="text-transform: uppercase;"
-                                    />
-                                    <span class="input-icon">📍</span>
+                                <div class="autocomplete-container">
+                                    <div class="input-with-icon">
+                                        <input
+                                            type="text"
+                                            id="destination"
+                                            placeholder="Enter city name or airport code (e.g., London, LAX, Paris)"
+                                            class="form-input"
+                                            autocomplete="off"
+                                        />
+                                        <span class="input-icon">📍</span>
+                                    </div>
+                                    <div id="autocompleteDropdown" class="autocomplete-dropdown"></div>
                                 </div>
                                 <div style="font-size: 0.75rem; color: #6b7280;">
-                                    <div>Enter 3-letter airport code (LAX, JFK, LHR, etc.)</div>
+                                    <div>Type city name (London, Paris) or 3-letter airport code (LAX, JFK, LHR)</div>
                                     <div class="popular-codes">
                                         <span>Popular: </span>
-                                        <button type="button" onclick="setDestination('LAX')" class="code-btn">LAX</button>
-                                        <button type="button" onclick="setDestination('JFK')" class="code-btn">JFK</button>
-                                        <button type="button" onclick="setDestination('LHR')" class="code-btn">LHR</button>
-                                        <button type="button" onclick="setDestination('CDG')" class="code-btn">CDG</button>
-                                        <button type="button" onclick="setDestination('NRT')" class="code-btn">NRT</button>
-                                        <button type="button" onclick="setDestination('YVR')" class="code-btn">YVR</button>
-                                        <button type="button" onclick="setDestination('DXB')" class="code-btn">DXB</button>
-                                        <button type="button" onclick="setDestination('FCO')" class="code-btn">FCO</button>
+                                        <button type="button" onclick="selectDestination('London', 'LHR')" class="code-btn">London</button>
+                                        <button type="button" onclick="selectDestination('Paris', 'CDG')" class="code-btn">Paris</button>
+                                        <button type="button" onclick="selectDestination('New York', 'JFK')" class="code-btn">New York</button>
+                                        <button type="button" onclick="selectDestination('Los Angeles', 'LAX')" class="code-btn">Los Angeles</button>
+                                        <button type="button" onclick="selectDestination('Tokyo', 'NRT')" class="code-btn">Tokyo</button>
+                                        <button type="button" onclick="selectDestination('Vancouver', 'YVR')" class="code-btn">Vancouver</button>
+                                        <button type="button" onclick="selectDestination('Dubai', 'DXB')" class="code-btn">Dubai</button>
+                                        <button type="button" onclick="selectDestination('Rome', 'FCO')" class="code-btn">Rome</button>
                                     </div>
                                 </div>
                             </div>
