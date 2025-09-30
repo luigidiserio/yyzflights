@@ -259,8 +259,21 @@ function HomePage() {
                         />
                         <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                       </div>
-                      <div className="text-xs text-gray-500">
-                        Enter 3-letter airport code (LAX, JFK, LHR, etc.)
+                      <div className="text-xs text-gray-500 space-y-1">
+                        <div>Enter 3-letter airport code (LAX, JFK, LHR, etc.)</div>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          <span className="text-xs">Popular: </span>
+                          {['LAX', 'JFK', 'LHR', 'CDG', 'NRT', 'YVR', 'DXB', 'FCO'].map((code) => (
+                            <button
+                              key={code}
+                              type="button"
+                              className="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors"
+                              onClick={() => setSearchForm({...searchForm, destination: code})}
+                            >
+                              {code}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
 
