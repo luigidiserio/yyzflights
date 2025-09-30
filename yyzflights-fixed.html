@@ -875,19 +875,122 @@
         document.getElementById('departureDate').setAttribute('min', today);
         document.getElementById('returnDate').setAttribute('min', today);
         
-        // Auto-uppercase destination input
-        document.getElementById('destination').addEventListener('input', function(e) {
-            e.target.value = e.target.value.toUpperCase();
-        });
-        
+        // City to airport code mapping
+        const cityAirportMap = {
+            // Major Cities
+            'london': { code: 'LHR', name: 'London', airport: 'Heathrow Airport' },
+            'paris': { code: 'CDG', name: 'Paris', airport: 'Charles de Gaulle Airport' },
+            'new york': { code: 'JFK', name: 'New York', airport: 'John F. Kennedy Airport' },
+            'nyc': { code: 'JFK', name: 'New York', airport: 'John F. Kennedy Airport' },
+            'los angeles': { code: 'LAX', name: 'Los Angeles', airport: 'Los Angeles International Airport' },
+            'tokyo': { code: 'NRT', name: 'Tokyo', airport: 'Narita International Airport' },
+            'vancouver': { code: 'YVR', name: 'Vancouver', airport: 'Vancouver International Airport' },
+            'dubai': { code: 'DXB', name: 'Dubai', airport: 'Dubai International Airport' },
+            'rome': { code: 'FCO', name: 'Rome', airport: 'Fiumicino Airport' },
+            'amsterdam': { code: 'AMS', name: 'Amsterdam', airport: 'Schiphol Airport' },
+            'frankfurt': { code: 'FRA', name: 'Frankfurt', airport: 'Frankfurt Airport' },
+            'madrid': { code: 'MAD', name: 'Madrid', airport: 'Barajas Airport' },
+            'barcelona': { code: 'BCN', name: 'Barcelona', airport: 'El Prat Airport' },
+            'munich': { code: 'MUC', name: 'Munich', airport: 'Munich Airport' },
+            'zurich': { code: 'ZUR', name: 'Zurich', airport: 'Zurich Airport' },
+            'vienna': { code: 'VIE', name: 'Vienna', airport: 'Vienna International Airport' },
+            'istanbul': { code: 'IST', name: 'Istanbul', airport: 'Istanbul Airport' },
+            'delhi': { code: 'DEL', name: 'Delhi', airport: 'Indira Gandhi International Airport' },
+            'mumbai': { code: 'BOM', name: 'Mumbai', airport: 'Chhatrapati Shivaji International Airport' },
+            'singapore': { code: 'SIN', name: 'Singapore', airport: 'Changi Airport' },
+            'hong kong': { code: 'HKG', name: 'Hong Kong', airport: 'Hong Kong International Airport' },
+            'sydney': { code: 'SYD', name: 'Sydney', airport: 'Kingsford Smith Airport' },
+            'melbourne': { code: 'MEL', name: 'Melbourne', airport: 'Melbourne Airport' },
+            'montreal': { code: 'YUL', name: 'Montreal', airport: 'Pierre Elliott Trudeau International Airport' },
+            'calgary': { code: 'YYC', name: 'Calgary', airport: 'Calgary International Airport' },
+            'edmonton': { code: 'YEG', name: 'Edmonton', airport: 'Edmonton International Airport' },
+            'ottawa': { code: 'YOW', name: 'Ottawa', airport: 'Ottawa Macdonald-Cartier International Airport' },
+            'miami': { code: 'MIA', name: 'Miami', airport: 'Miami International Airport' },
+            'chicago': { code: 'ORD', name: 'Chicago', airport: 'O\'Hare International Airport' },
+            'san francisco': { code: 'SFO', name: 'San Francisco', airport: 'San Francisco International Airport' },
+            'seattle': { code: 'SEA', name: 'Seattle', airport: 'Seattle-Tacoma International Airport' },
+            'boston': { code: 'BOS', name: 'Boston', airport: 'Logan International Airport' },
+            'las vegas': { code: 'LAS', name: 'Las Vegas', airport: 'McCarran International Airport' },
+            'denver': { code: 'DEN', name: 'Denver', airport: 'Denver International Airport' },
+            'phoenix': { code: 'PHX', name: 'Phoenix', airport: 'Sky Harbor International Airport' },
+            'atlanta': { code: 'ATL', name: 'Atlanta', airport: 'Hartsfield-Jackson International Airport' },
+            'dallas': { code: 'DFW', name: 'Dallas', airport: 'Dallas/Fort Worth International Airport' },
+            'houston': { code: 'IAH', name: 'Houston', airport: 'George Bush Intercontinental Airport' },
+            'washington': { code: 'DCA', name: 'Washington', airport: 'Ronald Reagan Washington Airport' },
+            'philadelphia': { code: 'PHL', name: 'Philadelphia', airport: 'Philadelphia International Airport' },
+            'minneapolis': { code: 'MSP', name: 'Minneapolis', airport: 'Minneapolis-St. Paul International Airport' },
+            'detroit': { code: 'DTW', name: 'Detroit', airport: 'Detroit Metropolitan Wayne County Airport' },
+            'portland': { code: 'PDX', name: 'Portland', airport: 'Portland International Airport' },
+            'orlando': { code: 'MCO', name: 'Orlando', airport: 'Orlando International Airport' },
+            'tampa': { code: 'TPA', name: 'Tampa', airport: 'Tampa International Airport' },
+            'nashville': { code: 'BNA', name: 'Nashville', airport: 'Nashville International Airport' }
+        };
+
+        let selectedDestinationCode = '';
+
         // Auto-uppercase flight number input
         document.getElementById('flightNumber').addEventListener('input', function(e) {
             e.target.value = e.target.value.toUpperCase();
         });
         
-        // Set destination function for popular buttons
-        function setDestination(code) {
-            document.getElementById('destination').value = code;
+        // Destination input with autocomplete
+        const destinationInput = document.getElementById('destination');
+        const dropdown = document.getElementById('autocompleteDropdown');
+        
+        destinationInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                dropdown.style.display = 'none';
+                selectedDestinationCode = '';
+                return;
+            }
+            
+            // If it's a 3-letter code, check if it exists
+            if (query.length === 3 && query.match(/^[a-z]{3}$/)) {
+                selectedDestinationCode = query.toUpperCase();
+                dropdown.style.display = 'none';
+                return;
+            }
+            
+            // Search for matching cities
+            const matches = [];
+            for (const [city, info] of Object.entries(cityAirportMap)) {
+                if (city.includes(query) || info.name.toLowerCase().includes(query) || info.code.toLowerCase().includes(query)) {
+                    matches.push({city, ...info});
+                }
+            }
+            
+            if (matches.length > 0) {
+                dropdown.innerHTML = '';
+                matches.slice(0, 8).forEach(match => {
+                    const item = document.createElement('div');
+                    item.className = 'autocomplete-item';
+                    item.innerHTML = `
+                        <div class="city-name">${match.name}</div>
+                        <div class="airport-info">${match.code} - ${match.airport}</div>
+                    `;
+                    item.onclick = () => selectDestination(match.name, match.code);
+                    dropdown.appendChild(item);
+                });
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.autocomplete-container')) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Select destination function
+        function selectDestination(cityName, airportCode) {
+            destinationInput.value = cityName;
+            selectedDestinationCode = airportCode;
+            dropdown.style.display = 'none';
         }
         
         // Tab switching functionality
