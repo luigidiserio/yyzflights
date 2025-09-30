@@ -1024,27 +1024,36 @@
             e.preventDefault();
             
             const origin = document.getElementById('origin').value;
-            const destination = document.getElementById('destination').value;
+            const destinationValue = destinationInput.value.trim();
             const departureDate = document.getElementById('departureDate').value;
             const returnDate = document.getElementById('returnDate').value;
             const adults = document.getElementById('adults').value;
             const children = document.getElementById('children').value;
             
             // Validation
-            if (!destination || !departureDate) {
+            if (!destinationValue || !departureDate) {
                 alert('Please fill in all required fields');
                 return;
             }
             
-            if (destination.length !== 3 || !destination.match(/^[A-Z]{3}$/)) {
-                alert('Please enter a valid 3-letter airport code (e.g., LAX, JFK, LHR)');
-                return;
+            // Determine destination code
+            let destinationCode = selectedDestinationCode;
+            if (!destinationCode) {
+                const lowerQuery = destinationValue.toLowerCase();
+                if (cityAirportMap[lowerQuery]) {
+                    destinationCode = cityAirportMap[lowerQuery].code;
+                } else if (destinationValue.length === 3 && destinationValue.match(/^[A-Z]{3}$/)) {
+                    destinationCode = destinationValue.toUpperCase();
+                } else {
+                    alert('Please select a destination from the dropdown or enter a valid 3-letter airport code');
+                    return;
+                }
             }
             
-            // Build search URL
+            // Build search URL for search.yyzflights.com with actual search
             const searchParams = new URLSearchParams({
                 origin_iata: origin,
-                destination_iata: destination,
+                destination_iata: destinationCode,
                 departure_at: departureDate,
                 adults: adults,
                 children: children,
@@ -1057,8 +1066,17 @@
                 searchParams.append('return_at', returnDate);
             }
             
+            // This will perform the actual search on search.yyzflights.com
             const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
-            console.log('Opening search URL:', searchUrl);
+            console.log('Performing search with:', {
+                origin: origin,
+                destination: destinationCode,
+                departureDate: departureDate,
+                returnDate: returnDate,
+                adults: adults,
+                children: children
+            });
+            
             window.open(searchUrl, '_blank');
         });
         
