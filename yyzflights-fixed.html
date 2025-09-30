@@ -808,6 +808,32 @@
             document.getElementById('destination').value = code;
         }
         
+        // Tab switching functionality
+        function switchTab(tab) {
+            const searchTab = document.getElementById('searchTab');
+            const statusTab = document.getElementById('statusTab');
+            const searchSection = document.getElementById('searchSection');
+            const statusSection = document.getElementById('statusSection');
+            
+            if (tab === 'search') {
+                searchTab.style.background = '#dc2626';
+                searchTab.style.color = 'white';
+                statusTab.style.background = 'transparent';
+                statusTab.style.color = '#6b7280';
+                
+                searchSection.style.display = 'block';
+                statusSection.style.display = 'none';
+            } else {
+                statusTab.style.background = '#2563eb';
+                statusTab.style.color = 'white';
+                searchTab.style.background = 'transparent';
+                searchTab.style.color = '#6b7280';
+                
+                searchSection.style.display = 'none';
+                statusSection.style.display = 'block';
+            }
+        }
+        
         // Form submission
         document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
