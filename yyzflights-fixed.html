@@ -749,11 +749,40 @@
                 </div>
             </div>
 
-            <!-- Popular Destinations -->
+            <!-- Flight Search Map -->
             <section style="margin-top: 4rem;">
-                <h3 class="section-title">Popular Destinations from Toronto</h3>
-                <div class="destinations-grid" id="popularDestinations">
-                    <!-- Popular destinations will be populated by JavaScript -->
+                <h3 class="section-title">🗺️ Flights Under $300 CAD from Toronto (YYZ)</h3>
+                <div class="card">
+                    <div class="card-content">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <p style="color: #6b7280; font-size: 1.125rem;">
+                                Discover affordable destinations you can reach from Toronto for under $300 CAD
+                            </p>
+                        </div>
+                        
+                        <!-- Interactive Flight Map -->
+                        <div style="position: relative; background: #f8fafc; border-radius: 0.5rem; padding: 2rem; margin-bottom: 1.5rem;">
+                            <div style="text-align: center; margin-bottom: 2rem;">
+                                <div style="display: inline-block; background: linear-gradient(135deg, #dc2626, #2563eb); color: white; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600;">
+                                    ✈️ YYZ Toronto
+                                </div>
+                            </div>
+                            
+                            <!-- Flight Routes -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;" id="flightMapDestinations">
+                                <!-- Destinations will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+                                * Prices shown are starting from and subject to availability
+                            </p>
+                            <button onclick="switchTab('search'); window.scrollTo({top: 300, behavior: 'smooth'});" class="btn-secondary">
+                                🔍 Search All Destinations
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
