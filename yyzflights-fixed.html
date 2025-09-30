@@ -803,6 +803,11 @@
             e.target.value = e.target.value.toUpperCase();
         });
         
+        // Auto-uppercase flight number input
+        document.getElementById('flightNumber').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
+        
         // Set destination function for popular buttons
         function setDestination(code) {
             document.getElementById('destination').value = code;
