@@ -877,6 +877,73 @@
             window.open(searchUrl, '_blank');
         });
         
+        // Flight Status form submission
+        document.getElementById('flightStatusForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const flightNumber = document.getElementById('flightNumber').value.trim().toUpperCase();
+            
+            if (!flightNumber) {
+                alert('Please enter a flight number');
+                return;
+            }
+            
+            if (flightNumber.length < 4 || !flightNumber.match(/^[A-Z]{2}\d+$/)) {
+                alert('Please enter a valid flight number (e.g., AC123, WS456)');
+                return;
+            }
+            
+            // Generate mock flight status
+            const airlines = {
+                'AC': 'Air Canada',
+                'WS': 'WestJet', 
+                'TS': 'Air Transat',
+                'PD': 'Porter Airlines'
+            };
+            
+            const airlineCode = flightNumber.substring(0, 2);
+            const airlineName = airlines[airlineCode] || 'Unknown Airline';
+            const statuses = ['On Time', 'Delayed', 'Boarding', 'Departed'];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            const now = new Date();
+            const depTime = new Date(now.getTime() + Math.random() * 8 * 60 * 60 * 1000); // Random time in next 8 hours
+            const arrTime = new Date(depTime.getTime() + (2 + Math.random() * 8) * 60 * 60 * 1000); // 2-10 hours later
+            
+            const destinations = ['LAX', 'JFK', 'LHR', 'CDG', 'FCO', 'DXB'];
+            const destination = destinations[Math.floor(Math.random() * destinations.length)];
+            
+            const statusColor = status === 'On Time' ? '#10b981' : 
+                              status === 'Delayed' ? '#f59e0b' : 
+                              status === 'Boarding' ? '#3b82f6' : '#6b7280';
+            
+            const resultDiv = document.getElementById('flightStatusResult');
+            resultDiv.innerHTML = `
+                <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.25rem; font-weight: bold; margin: 0;">Flight ${flightNumber}</h3>
+                    <span style="background: ${statusColor}; color: white; padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 600;">${status}</span>
+                </div>
+                <p style="color: #6b7280; margin-bottom: 1.5rem;">${airlineName}</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Departure</h4>
+                        <p><strong>Airport:</strong> YYZ</p>
+                        <p><strong>Scheduled:</strong> ${depTime.toLocaleTimeString('en-CA', {hour: '2-digit', minute: '2-digit'})}</p>
+                        <p><strong>Date:</strong> ${depTime.toLocaleDateString('en-CA')}</p>
+                        <p><strong>Terminal:</strong> ${Math.random() > 0.5 ? '1' : '3'}</p>
+                        <p><strong>Gate:</strong> B${Math.floor(Math.random() * 30) + 1}</p>
+                    </div>
+                    <div>
+                        <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Arrival</h4>
+                        <p><strong>Airport:</strong> ${destination}</p>
+                        <p><strong>Scheduled:</strong> ${arrTime.toLocaleTimeString('en-CA', {hour: '2-digit', minute: '2-digit'})}</p>
+                        <p><strong>Date:</strong> ${arrTime.toLocaleDateString('en-CA')}</p>
+                    </div>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+        });
+        
         // Trip.com alternative search
         function searchTripCom() {
             const departureDate = document.getElementById('departureDate').value;
