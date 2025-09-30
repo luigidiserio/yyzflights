@@ -610,9 +610,20 @@
                             <!-- Origin -->
                             <div class="form-group">
                                 <label>From</label>
-                                <select id="origin" class="form-input">
-                                    <option value="YYZ">YYZ - Toronto, Canada</option>
-                                </select>
+                                <div class="autocomplete-container">
+                                    <div class="input-with-icon">
+                                        <input
+                                            type="text"
+                                            id="origin"
+                                            placeholder="Enter departure city (e.g., Toronto, London, Paris)"
+                                            class="form-input"
+                                            autocomplete="off"
+                                            value="Toronto"
+                                        />
+                                        <span class="input-icon">🛫</span>
+                                    </div>
+                                    <div id="originAutocompleteDropdown" class="autocomplete-dropdown"></div>
+                                </div>
                             </div>
 
                             <!-- Destination -->
