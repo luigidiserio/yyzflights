@@ -1128,7 +1128,7 @@
         document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const origin = document.getElementById('origin').value;
+            const originValue = originInput.value.trim();
             const destinationValue = destinationInput.value.trim();
             const departureDate = document.getElementById('departureDate').value;
             const returnDate = document.getElementById('returnDate').value;
@@ -1136,9 +1136,23 @@
             const children = document.getElementById('children').value;
             
             // Validation
-            if (!destinationValue || !departureDate) {
+            if (!originValue || !destinationValue || !departureDate) {
                 alert('Please fill in all required fields');
                 return;
+            }
+            
+            // Determine origin code
+            let originCode = selectedOriginCode;
+            if (!originCode) {
+                const lowerOrigin = originValue.toLowerCase();
+                if (cityAirportMap[lowerOrigin]) {
+                    originCode = cityAirportMap[lowerOrigin].code;
+                } else if (originValue.length === 3 && originValue.match(/^[A-Z]{3}$/)) {
+                    originCode = originValue.toUpperCase();
+                } else {
+                    alert('Please select an origin city from the dropdown or enter a valid 3-letter airport code');
+                    return;
+                }
             }
             
             // Determine destination code
@@ -1155,16 +1169,16 @@
                 }
             }
             
-            // Build search URL for search.yyzflights.com with actual search
+            // Build search URL for search.yyzflights.com with partner code 48749
             const searchParams = new URLSearchParams({
-                origin_iata: origin,
+                origin_iata: originCode,
                 destination_iata: destinationCode,
                 departure_at: departureDate,
                 adults: adults,
                 children: children,
                 infants: '0',
                 trip_class: 'Y',
-                marker: 'yyzflights'
+                marker: '48749'
             });
             
             if (returnDate) {
@@ -1174,7 +1188,7 @@
             // This will perform the actual search on search.yyzflights.com
             const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
             console.log('Performing search with:', {
-                origin: origin,
+                origin: originCode,
                 destination: destinationCode,
                 departureDate: departureDate,
                 returnDate: returnDate,
