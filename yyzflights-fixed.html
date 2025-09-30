@@ -1170,6 +1170,262 @@
             window.open(tripUrl, '_blank');
         }
         
+        // Article system
+        const articles = {
+            parking: {
+                title: "🚗 Parking Options at Toronto Pearson (YYZ)",
+                content: `
+                    <h3>Terminal 1 Parking</h3>
+                    <ul>
+                        <li><strong>Valet Parking:</strong> $45/day - Most convenient option</li>
+                        <li><strong>Express Parking:</strong> $35/day - Covered parking close to terminal</li>
+                        <li><strong>Value Parking:</strong> $25/day - Short shuttle ride to terminal</li>
+                    </ul>
+                    
+                    <h3>Terminal 3 Parking</h3>
+                    <ul>
+                        <li><strong>Premium Parking:</strong> $42/day - Closest to terminal</li>
+                        <li><strong>Express Parking:</strong> $32/day - Covered parking</li>
+                        <li><strong>Value Parking:</strong> $22/day - Economy option with shuttle</li>
+                    </ul>
+                    
+                    <h3>Money-Saving Tips</h3>
+                    <ul>
+                        <li>Book online in advance for discounts up to 20%</li>
+                        <li>Consider off-site parking for rates as low as $8/day</li>
+                        <li>Park & Fly hotel packages include free parking</li>
+                        <li>Use the YYZ app for real-time parking availability</li>
+                    </ul>
+                `
+            },
+            transit: {
+                title: "🚊 UP Express & Transit Options to YYZ",
+                content: `
+                    <h3>UP Express (Recommended)</h3>
+                    <ul>
+                        <li><strong>Route:</strong> Pearson ↔ Bloor ↔ Dundas West ↔ Weston ↔ Union Station</li>
+                        <li><strong>Frequency:</strong> Every 15 minutes</li>
+                        <li><strong>Travel Time:</strong> 25 minutes from Union Station</li>
+                        <li><strong>Cost:</strong> $12.35 from Union Station</li>
+                        <li><strong>Hours:</strong> 5:30 AM - 1:00 AM daily</li>
+                    </ul>
+                    
+                    <h3>TTC Bus Routes</h3>
+                    <ul>
+                        <li><strong>900 Airport Rocket:</strong> Express service from Kipling Station</li>
+                        <li><strong>300A Bloor-Danforth Night Bus:</strong> Late night service</li>
+                        <li><strong>52 Lawrence West:</strong> Connects to Lawrence West Station</li>
+                    </ul>
+                    
+                    <h3>Other Options</h3>
+                    <ul>
+                        <li><strong>Taxi:</strong> $50-70 from downtown (45-60 mins)</li>
+                        <li><strong>Uber/Lyft:</strong> $35-55 from downtown</li>
+                        <li><strong>GO Transit:</strong> Available from Malton GO with shuttle</li>
+                        <li><strong>Hotel Shuttles:</strong> Many airport hotels offer free shuttles</li>
+                    </ul>
+                `
+            },
+            terminals: {
+                title: "🏢 YYZ Terminal Guide",
+                content: `
+                    <h3>Terminal 1</h3>
+                    <ul>
+                        <li><strong>Airlines:</strong> Air Canada, Lufthansa, Swiss, Austrian, Brussels Airlines, and Star Alliance partners</li>
+                        <li><strong>Gates:</strong> A, B, C, D, E, F</li>
+                        <li><strong>Features:</strong> Maple Leaf Lounges, extensive dining, duty-free shopping</li>
+                        <li><strong>Security:</strong> NEXUS lanes available</li>
+                    </ul>
+                    
+                    <h3>Terminal 3</h3>
+                    <ul>
+                        <li><strong>Airlines:</strong> WestJet, American Airlines, Delta, British Airways, Air France, and most international carriers</li>
+                        <li><strong>Gates:</strong> A, B, C, D</li>
+                        <li><strong>Features:</strong> Plaza Premium Lounges, Tim Hortons, Hudson News</li>
+                        <li><strong>Amenities:</strong> Sleep pods, charging stations, free WiFi</li>
+                    </ul>
+                    
+                    <h3>Inter-Terminal Transportation</h3>
+                    <ul>
+                        <li><strong>LINK Train:</strong> Free automated train connecting terminals (3-5 minutes)</li>
+                        <li><strong>Walking:</strong> 10-15 minute walk via covered walkway</li>
+                        <li><strong>Shuttle Bus:</strong> Available during LINK train maintenance</li>
+                    </ul>
+                `
+            },
+            services: {
+                title: "🛍️ YYZ Airport Services & Amenities",
+                content: `
+                    <h3>Dining Options</h3>
+                    <ul>
+                        <li><strong>Terminal 1:</strong> Seasons, Face2Face Noodles, Mill Street Brew Pub</li>
+                        <li><strong>Terminal 3:</strong> Fionn MacCool's, Paramount Fine Foods, Freshii</li>
+                        <li><strong>Quick Bites:</strong> Tim Hortons, Starbucks, McDonald's</li>
+                    </ul>
+                    
+                    <h3>Shopping</h3>
+                    <ul>
+                        <li><strong>Duty-Free:</strong> Liquor, tobacco, perfumes, chocolates</li>
+                        <li><strong>Fashion:</strong> Roots, Hudson's Bay, Victoria's Secret</li>
+                        <li><strong>Electronics:</strong> Best Buy Express, InMotion Entertainment</li>
+                        <li><strong>Souvenirs:</strong> Canadian-themed gifts and maple syrup</li>
+                    </ul>
+                    
+                    <h3>Services</h3>
+                    <ul>
+                        <li><strong>Currency Exchange:</strong> Multiple ICE locations</li>
+                        <li><strong>Banking:</strong> BMO and RBC ATMs</li>
+                        <li><strong>Car Rental:</strong> All major companies on-site</li>
+                        <li><strong>Baggage:</strong> Storage and wrapping services</li>
+                        <li><strong>WiFi:</strong> Free unlimited WiFi throughout</li>
+                    </ul>
+                `
+            },
+            worldcup: {
+                title: "⚽ FIFA World Cup 2026 in Toronto",
+                content: `
+                    <h3>Toronto as a Host City</h3>
+                    <p>Toronto is one of the 16 host cities for the <strong>FIFA World Cup 2026</strong>, co-hosted by Canada, USA, and Mexico. Matches will be played at BMO Field.</p>
+                    
+                    <h3>Flight Planning Tips</h3>
+                    <ul>
+                        <li><strong>Book Early:</strong> Flights will be in high demand during match days</li>
+                        <li><strong>Peak Dates:</strong> June 11 - July 19, 2026</li>
+                        <li><strong>Alternative Airports:</strong> Consider flying into Buffalo or Hamilton</li>
+                        <li><strong>Extended Stay:</strong> Explore other Canadian cities while you're here</li>
+                    </ul>
+                    
+                    <h3>Getting Around During World Cup</h3>
+                    <ul>
+                        <li><strong>Public Transit:</strong> Enhanced GO Transit and TTC services</li>
+                        <li><strong>Traffic:</strong> Expect heavy congestion, allow extra time</li>
+                        <li><strong>Airport Shuttles:</strong> Special World Cup shuttle services planned</li>
+                        <li><strong>Accommodation:</strong> Book hotels near airport for convenience</li>
+                    </ul>
+                    
+                    <h3>Match Schedule</h3>
+                    <p>BMO Field will host 6 matches including group stage games and knockout rounds. Check FIFA's official schedule for specific dates and teams.</p>
+                `
+            },
+            events: {
+                title: "🎭 Toronto Events & Festivals",
+                content: `
+                    <h3>Annual Festivals</h3>
+                    <ul>
+                        <li><strong>Toronto International Film Festival (TIFF):</strong> September</li>
+                        <li><strong>Canadian National Exhibition (CNE):</strong> August-September</li>
+                        <li><strong>Pride Toronto:</strong> June</li>
+                        <li><strong>Caribana Festival:</strong> July-August</li>
+                        <li><strong>Winter Festival of Lights:</strong> November-February</li>
+                    </ul>
+                    
+                    <h3>Sports Events</h3>
+                    <ul>
+                        <li><strong>Toronto Maple Leafs (NHL):</strong> October-April at Scotiabank Arena</li>
+                        <li><strong>Toronto Raptors (NBA):</strong> October-April at Scotiabank Arena</li>
+                        <li><strong>Toronto Blue Jays (MLB):</strong> April-October at Rogers Centre</li>
+                        <li><strong>Toronto FC (MLS):</strong> March-November at BMO Field</li>
+                    </ul>
+                    
+                    <h3>Cultural Events</h3>
+                    <ul>
+                        <li><strong>Luminato Festival:</strong> Arts and culture in June</li>
+                        <li><strong>Hot Docs:</strong> Documentary film festival in April-May</li>
+                        <li><strong>Taste of the Danforth:</strong> Food festival in August</li>
+                        <li><strong>Royal Winter Fair:</strong> Agricultural show in November</li>
+                    </ul>
+                `
+            },
+            hotels: {
+                title: "🏨 Toronto Airport Hotels",
+                content: `
+                    <h3>On-Airport Hotels</h3>
+                    <ul>
+                        <li><strong>Sheraton Gateway Hotel:</strong> Connected to Terminal 3 via walkway</li>
+                        <li><strong>Alt Hotel Toronto Airport:</strong> Modern design, Terminal 3 shuttle</li>
+                    </ul>
+                    
+                    <h3>Near Airport Hotels</h3>
+                    <ul>
+                        <li><strong>Hilton Toronto Airport:</strong> Free shuttle, 24/7 fitness center</li>
+                        <li><strong>Delta Toronto Airport West:</strong> Indoor pool, restaurant</li>
+                        <li><strong>Hampton Inn & Suites Toronto Airport:</strong> Free breakfast, shuttle</li>
+                        <li><strong>Holiday Inn Express Toronto Airport:</strong> Budget-friendly, shuttle</li>
+                    </ul>
+                    
+                    <h3>Hotel Amenities</h3>
+                    <ul>
+                        <li><strong>Free Airport Shuttles:</strong> Most hotels offer 24/7 shuttle service</li>
+                        <li><strong>Park & Fly Packages:</strong> Free parking with room bookings</li>
+                        <li><strong>Early Check-in:</strong> Available for flight connections</li>
+                        <li><strong>Meeting Rooms:</strong> Business facilities available</li>
+                    </ul>
+                    
+                    <h3>Booking Tips</h3>
+                    <ul>
+                        <li>Book directly for potential upgrades and perks</li>
+                        <li>Check for airline crew rates if you're in aviation</li>
+                        <li>Consider stay packages that include meals</li>
+                        <li>Look for hotels with 24/7 front desk for late arrivals</li>
+                    </ul>
+                `
+            },
+            weather: {
+                title: "🌤️ Toronto Weather Guide for Travelers",
+                content: `
+                    <h3>Seasonal Weather</h3>
+                    <ul>
+                        <li><strong>Spring (March-May):</strong> 5-20°C, rainy, pack layers</li>
+                        <li><strong>Summer (June-August):</strong> 15-26°C, humid, thunderstorms</li>
+                        <li><strong>Fall (September-November):</strong> 5-18°C, crisp, beautiful foliage</li>
+                        <li><strong>Winter (December-February):</strong> -10 to 0°C, snow, very cold</li>
+                    </ul>
+                    
+                    <h3>Flight Impact</h3>
+                    <ul>
+                        <li><strong>Winter Delays:</strong> Snow and ice can cause delays December-March</li>
+                        <li><strong>Summer Storms:</strong> Thunderstorms may cause brief delays June-August</li>
+                        <li><strong>Best Weather:</strong> May-June and September-October</li>
+                        <li><strong>Airport Preparedness:</strong> YYZ handles winter weather efficiently</li>
+                    </ul>
+                    
+                    <h3>Packing Tips</h3>
+                    <ul>
+                        <li><strong>Winter:</strong> Heavy coat, boots, gloves, hat essential</li>
+                        <li><strong>Summer:</strong> Light layers, umbrella, comfortable shoes</li>
+                        <li><strong>Spring/Fall:</strong> Waterproof jacket, layers for temperature changes</li>
+                        <li><strong>Year-Round:</strong> Comfortable walking shoes for exploring the city</li>
+                    </ul>
+                `
+            }
+        };
+        
+        function showArticle(articleKey) {
+            const modal = document.getElementById('articleModal');
+            const title = document.getElementById('articleTitle');
+            const content = document.getElementById('articleContent');
+            
+            if (articles[articleKey]) {
+                title.textContent = articles[articleKey].title;
+                content.innerHTML = articles[articleKey].content;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        }
+        
+        function closeArticle() {
+            const modal = document.getElementById('articleModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('articleModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeArticle();
+            }
+        });
+        
         // Populate popular destinations
         const popularDestinations = [
             { destination: "LHR", city_name: "London", country: "United Kingdom", price: 850.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400" },
