@@ -1169,25 +1169,32 @@
                 }
             }
             
-            // Build search URL for search.yyzflights.com with partner code 48749
+            // Build search URL to match your current site's format
             const searchParams = new URLSearchParams({
+                depart_date: departureDate,
                 origin_iata: originCode,
                 destination_iata: destinationCode,
-                departure_at: departureDate,
-                adults: adults,
-                children: children,
-                infants: '0',
-                trip_class: 'Y',
-                marker: '48749'
+                currency: 'cad',
+                language: 'en',
+                with_request: 'true',
+                locale: 'en'
             });
             
             if (returnDate) {
-                searchParams.append('return_at', returnDate);
+                searchParams.append('return_date', returnDate);
             }
             
-            // This will perform the actual search on search.yyzflights.com
-            const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
-            console.log('Performing search with:', {
+            // Add passenger info
+            if (adults > 1) {
+                searchParams.append('adults', adults);
+            }
+            if (children > 0) {
+                searchParams.append('children', children);
+            }
+            
+            // This will perform the actual search on search.yyzflights.com with your format
+            const searchUrl = `https://search.yyzflights.com/flights?${searchParams.toString()}`;
+            console.log('Performing search with YYZ format:', {
                 origin: originCode,
                 destination: destinationCode,
                 departureDate: departureDate,
