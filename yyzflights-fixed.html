@@ -812,7 +812,7 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
-                <div class="footer-grid">
+                <div class="footer-grid" style="grid-template-columns: repeat(4, 1fr);">
                     <div class="footer-section">
                         <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
                             <div style="width: 2rem; height: 2rem; background: linear-gradient(135deg, #dc2626, #2563eb); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: white;">✈</div>
@@ -820,6 +820,7 @@
                         </div>
                         <p>Toronto's premier flight booking platform, proudly partnered with TravelPayouts to bring you the best deals on flights departing from YYZ.</p>
                     </div>
+                    
                     <div class="footer-section">
                         <h4>Quick Links</h4>
                         <ul>
@@ -829,9 +830,25 @@
                             <li><a href="#" onclick="searchTripCom(); return false;" style="color: #9ca3af; text-decoration: none; cursor: pointer;">Alternative Search</a></li>
                         </ul>
                     </div>
+                    
                     <div class="footer-section">
-                        <h4>About YYZ Flights</h4>
-                        <p>🍁 Proudly Canadian - serving travelers from Toronto Pearson International Airport (YYZ) with the best flight deals worldwide through our TravelPayouts affiliate partnership.</p>
+                        <h4>YYZ Airport Guide</h4>
+                        <ul>
+                            <li><a href="#" onclick="showArticle('parking')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🚗 Parking Options at YYZ</a></li>
+                            <li><a href="#" onclick="showArticle('transit')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🚊 UP Express & Transit</a></li>
+                            <li><a href="#" onclick="showArticle('terminals')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🏢 Terminal Guide</a></li>
+                            <li><a href="#" onclick="showArticle('services')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🛍️ Airport Services</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Toronto Travel Info</h4>
+                        <ul>
+                            <li><a href="#" onclick="showArticle('worldcup')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">⚽ FIFA World Cup 2026</a></li>
+                            <li><a href="#" onclick="showArticle('events')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🎭 Toronto Events</a></li>
+                            <li><a href="#" onclick="showArticle('hotels')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🏨 Airport Hotels</a></li>
+                            <li><a href="#" onclick="showArticle('weather')" style="color: #9ca3af; text-decoration: none; cursor: pointer;">🌤️ Toronto Weather</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="footer-bottom">
@@ -839,6 +856,17 @@
                 </div>
             </div>
         </footer>
+        
+        <!-- Article Modal -->
+        <div id="articleModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; padding: 2rem;">
+            <div style="background: white; max-width: 800px; margin: 0 auto; border-radius: 0.75rem; padding: 2rem; max-height: 80vh; overflow-y: auto;">
+                <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2 id="articleTitle" style="font-size: 1.5rem; font-weight: bold; margin: 0; flex: 1;"></h2>
+                    <button onclick="closeArticle()" style="background: #dc2626; color: white; border: none; border-radius: 50%; width: 2rem; height: 2rem; cursor: pointer;">✕</button>
+                </div>
+                <div id="articleContent"></div>
+            </div>
+        </div>
     </div>
 
     <script>
