@@ -1149,12 +1149,23 @@
         
         // Trip.com alternative search
         function searchTripCom() {
+            const destinationValue = destinationInput.value.trim();
             const departureDate = document.getElementById('departureDate').value;
             const returnDate = document.getElementById('returnDate').value;
             const adults = document.getElementById('adults').value;
             const children = document.getElementById('children').value;
             
-            const tripUrl = `https://www.trip.com/flights?dcity=YYZ&acity=&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}`;
+            let destinationCode = selectedDestinationCode;
+            if (!destinationCode && destinationValue) {
+                const lowerQuery = destinationValue.toLowerCase();
+                if (cityAirportMap[lowerQuery]) {
+                    destinationCode = cityAirportMap[lowerQuery].code;
+                } else if (destinationValue.length === 3 && destinationValue.match(/^[A-Z]{3}$/)) {
+                    destinationCode = destinationValue.toUpperCase();
+                }
+            }
+            
+            const tripUrl = `https://www.trip.com/flights?dcity=YYZ&acity=${destinationCode || ''}&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}`;
             console.log('Opening Trip.com URL:', tripUrl);
             window.open(tripUrl, '_blank');
         }
