@@ -983,12 +983,66 @@
             'nashville': { code: 'BNA', name: 'Nashville', airport: 'Nashville International Airport' }
         };
 
+        let selectedOriginCode = 'YYZ'; // Default to Toronto
         let selectedDestinationCode = '';
 
         // Auto-uppercase flight number input
         document.getElementById('flightNumber').addEventListener('input', function(e) {
             e.target.value = e.target.value.toUpperCase();
         });
+        
+        // Origin input with autocomplete
+        const originInput = document.getElementById('origin');
+        const originDropdown = document.getElementById('originAutocompleteDropdown');
+        
+        originInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                originDropdown.style.display = 'none';
+                selectedOriginCode = '';
+                return;
+            }
+            
+            // If it's a 3-letter code, check if it exists
+            if (query.length === 3 && query.match(/^[a-z]{3}$/)) {
+                selectedOriginCode = query.toUpperCase();
+                originDropdown.style.display = 'none';
+                return;
+            }
+            
+            // Search for matching cities
+            const matches = [];
+            for (const [city, info] of Object.entries(cityAirportMap)) {
+                if (city.includes(query) || info.name.toLowerCase().includes(query) || info.code.toLowerCase().includes(query)) {
+                    matches.push({city, ...info});
+                }
+            }
+            
+            if (matches.length > 0) {
+                originDropdown.innerHTML = '';
+                matches.slice(0, 8).forEach(match => {
+                    const item = document.createElement('div');
+                    item.className = 'autocomplete-item';
+                    item.innerHTML = `
+                        <div class="city-name">${match.name}</div>
+                        <div class="airport-info">${match.code} - ${match.airport}</div>
+                    `;
+                    item.onclick = () => selectOrigin(match.name, match.code);
+                    originDropdown.appendChild(item);
+                });
+                originDropdown.style.display = 'block';
+            } else {
+                originDropdown.style.display = 'none';
+            }
+        });
+        
+        // Select origin function
+        function selectOrigin(cityName, airportCode) {
+            originInput.value = cityName;
+            selectedOriginCode = airportCode;
+            originDropdown.style.display = 'none';
+        }
         
         // Destination input with autocomplete
         const destinationInput = document.getElementById('destination');
@@ -1003,14 +1057,7 @@
                 return;
             }
             
-            // If it's a 3-letter code, check if it exists
-            if (query.length === 3 && query.match(/^[a-z]{3}$/)) {
-                selectedDestinationCode = query.toUpperCase();
-                dropdown.style.display = 'none';
-                return;
-            }
-            
-            // Search for matching cities
+            // Search for matching cities (no length restriction)
             const matches = [];
             for (const [city, info] of Object.entries(cityAirportMap)) {
                 if (city.includes(query) || info.name.toLowerCase().includes(query) || info.code.toLowerCase().includes(query)) {
@@ -1040,6 +1087,7 @@
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.autocomplete-container')) {
                 dropdown.style.display = 'none';
+                originDropdown.style.display = 'none';
             }
         });
         
