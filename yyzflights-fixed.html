@@ -786,44 +786,61 @@
                 </div>
             </section>
 
+            <!-- Popular Destinations -->
+            <section style="margin-top: 4rem;">
+                <h3 class="section-title">Popular Destinations from Toronto</h3>
+                <div class="destinations-grid" id="popularDestinations">
+                    <!-- Popular destinations will be populated by JavaScript -->
+                </div>
+            </section>
+
             <!-- Toronto Attractions -->
             <section style="margin-top: 4rem;">
                 <h3 class="section-title">🍁 Discover Toronto Attractions</h3>
                 <div class="card">
                     <div class="card-content">
-                        <div style="text-center; margin-bottom: 1.5rem;">
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
                             <p style="color: #6b7280; font-size: 1.125rem;">
-                                Before you fly, explore what Toronto has to offer! Book attractions and experiences with our partner Tiqets.
+                                Before you fly, explore what Toronto has to offer! Book attractions and experiences.
                             </p>
                         </div>
                         
-                        <div style="background: white; border-radius: 0.5rem; border: 2px solid #e5e7eb; overflow: hidden; margin-bottom: 1.5rem;">
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; padding: 2rem;">
-                                <div style="text-center; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
-                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏗️</div>
-                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">CN Tower</div>
-                                    <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600;">From $40 CAD</div>
-                                </div>
-                                <div style="text-center; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
-                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏰</div>
-                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Casa Loma</div>
-                                    <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600;">From $35 CAD</div>
-                                </div>
-                                <div style="text-center; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
-                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏛️</div>
-                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Royal Ontario Museum</div>
-                                    <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600;">From $28 CAD</div>
-                                </div>
-                                <div style="text-center; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
-                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🐠</div>
-                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Ripley's Aquarium</div>
-                                    <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600;">From $45 CAD</div>
-                                </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="text-center; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🏗️</div>
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">CN Tower</div>
+                                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">Iconic Toronto landmark with spectacular views</div>
+                                <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-bottom: 1rem;">From $40 CAD</div>
+                                <button onclick="window.open('https://search.yyzflights.com/?marker=48749&attraction=cn-tower', '_blank')" style="background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer;">Book Now</button>
+                            </div>
+                            
+                            <div style="text-center; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🏰</div>
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">Casa Loma</div>
+                                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">Majestic castle in the heart of Toronto</div>
+                                <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-bottom: 1rem;">From $35 CAD</div>
+                                <button onclick="window.open('https://search.yyzflights.com/?marker=48749&attraction=casa-loma', '_blank')" style="background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer;">Book Now</button>
+                            </div>
+                            
+                            <div style="text-center; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🏛️</div>
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">Royal Ontario Museum</div>
+                                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">World-class museum with diverse collections</div>
+                                <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-bottom: 1rem;">From $28 CAD</div>
+                                <button onclick="window.open('https://search.yyzflights.com/?marker=48749&attraction=rom', '_blank')" style="background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer;">Book Now</button>
+                            </div>
+                            
+                            <div style="text-center; padding: 1.5rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🐠</div>
+                                <div style="font-weight: 600; margin-bottom: 0.5rem;">Ripley's Aquarium</div>
+                                <div style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">Underwater adventure in downtown Toronto</div>
+                                <div style="font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-bottom: 1rem;">From $45 CAD</div>
+                                <button onclick="window.open('https://search.yyzflights.com/?marker=48749&attraction=aquarium', '_blank')" style="background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer;">Book Now</button>
                             </div>
                         </div>
                         
                         <div style="text-align: center;">
-                            <button onclick="window.open('https://www.tiqets.com/en/toronto-c72013/?partner=yyzflights', '_blank')" class="btn-secondary">
+                            <button onclick="window.open('https://search.yyzflights.com/?marker=48749&category=attractions', '_blank')" class="btn-secondary">
                                 🎭 View All Toronto Attractions
                             </button>
                         </div>
