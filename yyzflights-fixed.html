@@ -1268,14 +1268,26 @@
         
         // Trip.com alternative search
         function searchTripCom() {
+            const originValue = originInput.value.trim();
             const destinationValue = destinationInput.value.trim();
             const departureDate = document.getElementById('departureDate').value;
             const returnDate = document.getElementById('returnDate').value;
             const adults = document.getElementById('adults').value;
             const children = document.getElementById('children').value;
             
+            let originCode = selectedOriginCode || 'YYZ';
             let destinationCode = selectedDestinationCode;
-            if (!destinationCode && destinationValue) {
+            
+            if (originValue && !selectedOriginCode) {
+                const lowerOrigin = originValue.toLowerCase();
+                if (cityAirportMap[lowerOrigin]) {
+                    originCode = cityAirportMap[lowerOrigin].code;
+                } else if (originValue.length === 3 && originValue.match(/^[A-Z]{3}$/)) {
+                    originCode = originValue.toUpperCase();
+                }
+            }
+            
+            if (destinationValue && !selectedDestinationCode) {
                 const lowerQuery = destinationValue.toLowerCase();
                 if (cityAirportMap[lowerQuery]) {
                     destinationCode = cityAirportMap[lowerQuery].code;
@@ -1284,9 +1296,77 @@
                 }
             }
             
-            const tripUrl = `https://www.trip.com/flights?dcity=YYZ&acity=${destinationCode || ''}&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}`;
+            const tripUrl = `https://www.trip.com/flights?dcity=${originCode}&acity=${destinationCode || ''}&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}&marker=48749`;
             console.log('Opening Trip.com URL:', tripUrl);
             window.open(tripUrl, '_blank');
+        }
+        
+        // Flight map data - Top 20 destinations under $300 from YYZ
+        const flightMapDestinations = [
+            { code: 'YUL', city: 'Montreal', country: 'Canada', price: 180, flag: '🇨🇦' },
+            { code: 'YVR', city: 'Vancouver', country: 'Canada', price: 280, flag: '🇨🇦' },
+            { code: 'YYC', city: 'Calgary', country: 'Canada', price: 250, flag: '🇨🇦' },
+            { code: 'YEG', city: 'Edmonton', country: 'Canada', price: 270, flag: '🇨🇦' },
+            { code: 'YOW', city: 'Ottawa', country: 'Canada', price: 160, flag: '🇨🇦' },
+            { code: 'BOS', city: 'Boston', country: 'USA', price: 220, flag: '🇺🇸' },
+            { code: 'JFK', city: 'New York', country: 'USA', price: 240, flag: '🇺🇸' },
+            { code: 'DCA', city: 'Washington', country: 'USA', price: 260, flag: '🇺🇸' },
+            { code: 'ORD', city: 'Chicago', country: 'USA', price: 280, flag: '🇺🇸' },
+            { code: 'DTW', city: 'Detroit', country: 'USA', price: 190, flag: '🇺🇸' },
+            { code: 'MSP', city: 'Minneapolis', country: 'USA', price: 290, flag: '🇺🇸' },
+            { code: 'PHL', city: 'Philadelphia', country: 'USA', price: 230, flag: '🇺🇸' },
+            { code: 'BWI', city: 'Baltimore', country: 'USA', price: 250, flag: '🇺🇸' },
+            { code: 'BUF', city: 'Buffalo', country: 'USA', price: 140, flag: '🇺🇸' },
+            { code: 'PIT', city: 'Pittsburgh', country: 'USA', price: 210, flag: '🇺🇸' },
+            { code: 'CLE', city: 'Cleveland', country: 'USA', price: 200, flag: '🇺🇸' },
+            { code: 'MKE', city: 'Milwaukee', country: 'USA', price: 270, flag: '🇺🇸' },
+            { code: 'STL', city: 'St. Louis', country: 'USA', price: 290, flag: '🇺🇸' },
+            { code: 'IND', city: 'Indianapolis', country: 'USA', price: 260, flag: '🇺🇸' },
+            { code: 'CMH', city: 'Columbus', country: 'USA', price: 240, flag: '🇺🇸' }
+        ];
+        
+        function populateFlightMap() {
+            const container = document.getElementById('flightMapDestinations');
+            flightMapDestinations.forEach(dest => {
+                const mapItem = document.createElement('div');
+                mapItem.style.cssText = `
+                    background: white;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 0.5rem;
+                    padding: 1rem;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                `;
+                
+                mapItem.innerHTML = `
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">${dest.flag}</div>
+                    <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem;">${dest.city}</div>
+                    <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 0.5rem;">${dest.code}</div>
+                    <div style="font-size: 1rem; font-weight: bold; color: #dc2626;">$${dest.price}</div>
+                    <div style="font-size: 0.7rem; color: #9ca3af;">CAD</div>
+                `;
+                
+                mapItem.onmouseover = () => {
+                    mapItem.style.transform = 'translateY(-4px)';
+                    mapItem.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    mapItem.style.borderColor = '#dc2626';
+                };
+                
+                mapItem.onmouseout = () => {
+                    mapItem.style.transform = 'translateY(0)';
+                    mapItem.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                    mapItem.style.borderColor = '#e5e7eb';
+                };
+                
+                mapItem.onclick = () => {
+                    selectDestination(dest.city, dest.code);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                };
+                
+                container.appendChild(mapItem);
+            });
         }
         
         // Article system
