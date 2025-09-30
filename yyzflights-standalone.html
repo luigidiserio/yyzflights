@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YYZ Flights | Toronto's Premier Flight Booking Platform</title>
+    <meta name="description" content="YYZ Flights - Toronto's Premier Flight Booking Platform. Find the best deals on flights departing from Toronto Pearson International Airport (YYZ) with our TravelPayouts integration." />
+    <meta name="keywords" content="YYZ flights, Toronto flights, flight booking, TravelPayouts, Canada travel, Toronto Pearson airport" />
+    <meta property="og:title" content="YYZ Flights - Toronto's Premier Flight Booking" />
+    <meta property="og:description" content="Find the best flight deals from Toronto (YYZ) to destinations worldwide. Proudly Canadian flight booking platform." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: 'hsl(222.2, 47.4%, 11.2%)',
+                            foreground: 'hsl(210, 40%, 98%)',
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(210, 40%, 96%)',
+                            foreground: 'hsl(222.2, 47.4%, 11.2%)',
+                        },
+                        muted: {
+                            DEFAULT: 'hsl(210, 40%, 96%)',
+                            foreground: 'hsl(215.4, 16.3%, 46.9%)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #fef2f2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .btn-canadian {
+            background: linear-gradient(135deg, #dc2626, #2563eb);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-canadian:hover {
+            background: linear-gradient(135deg, #b91c1c, #1d4ed8);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 768px) {
+            .text-5xl { font-size: 2.5rem; }
+            .text-2xl { font-size: 1.5rem; }
+            .text-xl { font-size: 1.125rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-b from-blue-50 via-white to-red-50">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b-2 border-red-500">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-red-600 to-blue-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="plane" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold bg-gradient-to-r from-red-600 via-blue-600 to-red-600 bg-clip-text text-transparent">
+                                YYZ Flights
+                            </h1>
+                            <p class="text-sm text-gray-600">Toronto's Premier Flight Booking</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-6">
+                        <span class="text-sm text-gray-600">🍁 Proudly Canadian</span>
+                        <span class="inline-flex items-center rounded-md border border-red-500 px-2.5 py-0.5 text-xs font-semibold text-red-600">
+                            TravelPayouts Partner
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section 
+            class="relative h-96 bg-cover bg-center bg-no-repeat"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1559869824-929df9dab35e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxUb3JvbnRvJTIwc2t5bGluZXxlbnwwfHx8fDE3NTkxNTY4MDJ8MA&ixlib=rb-4.1.0&q=85')"
+        >
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center text-white px-4">
+                    <h2 class="text-5xl font-bold mb-4">Fly from Toronto to the World</h2>
+                    <p class="text-xl mb-6">Discover amazing deals on flights departing from YYZ</p>
+                    <div class="flex items-center justify-center space-x-2 text-lg">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                        <span>Toronto Pearson International Airport (YYZ)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Flight Search Section -->
+            <div class="mb-12">
+                <div class="bg-white rounded-xl border shadow-lg border-t-4 border-t-red-500">
+                    <div class="p-6">
+                        <div class="flex items-center text-2xl font-semibold mb-4">
+                            <i data-lucide="search" class="w-6 h-6 mr-2 text-red-500"></i>
+                            Find Your Perfect Flight
+                        </div>
+                        <p class="text-sm text-gray-600 mb-6">
+                            Search for flights from Toronto and get redirected to our TravelPayouts booking platform for the best deals
+                        </p>
+                        
+                        <form id="flightSearchForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Origin -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">From</label>
+                                    <select id="origin" class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        <option value="YYZ">YYZ - Toronto, Canada</option>
+                                    </select>
+                                </div>
+
+                                <!-- Destination -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">To</label>
+                                    <div class="relative">
+                                        <input
+                                            type="text"
+                                            id="destination"
+                                            placeholder="Enter destination (e.g., LAX, LHR, CDG)"
+                                            class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 pl-10 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                            maxlength="3"
+                                            style="text-transform: uppercase;"
+                                        />
+                                        <i data-lucide="map-pin" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="text-xs text-gray-500 space-y-1">
+                                        <div>Enter 3-letter airport code (LAX, JFK, LHR, etc.)</div>
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            <span class="text-xs">Popular: </span>
+                                            <button type="button" onclick="setDestination('LAX')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">LAX</button>
+                                            <button type="button" onclick="setDestination('JFK')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">JFK</button>
+                                            <button type="button" onclick="setDestination('LHR')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">LHR</button>
+                                            <button type="button" onclick="setDestination('CDG')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">CDG</button>
+                                            <button type="button" onclick="setDestination('NRT')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">NRT</button>
+                                            <button type="button" onclick="setDestination('YVR')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">YVR</button>
+                                            <button type="button" onclick="setDestination('DXB')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">DXB</button>
+                                            <button type="button" onclick="setDestination('FCO')" class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition-colors">FCO</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Departure Date -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">Departure Date</label>
+                                    <div class="relative">
+                                        <input
+                                            type="date"
+                                            id="departureDate"
+                                            class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 pl-10 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        />
+                                        <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Return Date -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">Return Date (Optional)</label>
+                                    <div class="relative">
+                                        <input
+                                            type="date"
+                                            id="returnDate"
+                                            class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 pl-10 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        />
+                                        <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Adults -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">Adults</label>
+                                    <select id="adults" class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        <option value="1">1 Adult</option>
+                                        <option value="2">2 Adults</option>
+                                        <option value="3">3 Adults</option>
+                                        <option value="4">4 Adults</option>
+                                    </select>
+                                </div>
+
+                                <!-- Children -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium">Children</label>
+                                    <select id="children" class="flex h-9 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        <option value="0">0 Children</option>
+                                        <option value="1">1 Child</option>
+                                        <option value="2">2 Children</option>
+                                        <option value="3">3 Children</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                class="w-full btn-canadian py-3 text-lg font-semibold flex items-center justify-center"
+                            >
+                                <i data-lucide="search" class="mr-2 h-4 w-4"></i>
+                                Search Flights on TravelPayouts
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Destinations -->
+            <section class="mt-16">
+                <h3 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+                    Popular Destinations from Toronto
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="popularDestinations">
+                    <!-- Popular destinations will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Toronto Attractions -->
+            <section class="mt-16">
+                <h3 class="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-red-600 to-blue-600 bg-clip-text text-transparent">
+                    🍁 Discover Toronto Attractions
+                </h3>
+                <div class="bg-white rounded-xl border shadow-lg border-t-4 border-t-red-500">
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <p class="text-gray-600 text-lg">
+                                Before you fly, explore what Toronto has to offer! Book attractions and experiences with our partner Tiqets.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg border-2 border-gray-200 overflow-hidden mb-6">
+                            <iframe
+                                src="https://www.tiqets.com/widgets/search?affiliateId=yyzflights&cityId=72013&theme=light&language=en"
+                                width="100%"
+                                height="400"
+                                frameborder="0"
+                                title="Toronto Attractions by Tiqets"
+                                class="rounded-lg"
+                            ></iframe>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button 
+                                onclick="window.open('https://www.tiqets.com/en/toronto-c72013/?partner=yyzflights', '_blank')"
+                                class="btn-canadian"
+                            >
+                                🎭 View All Toronto Attractions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Alternative Search -->
+            <section class="mt-12 mb-8">
+                <div class="text-center space-y-6">
+                    <div class="h-px bg-gray-300 my-8"></div>
+                    <div class="bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-orange-200 rounded-xl p-6">
+                        <h4 class="text-xl font-bold text-gray-800 mb-3">
+                            😞 NOT HAPPY WITH RESULTS?
+                        </h4>
+                        <p class="text-gray-600 mb-4">
+                            Try our alternative search partner for potentially different prices and options
+                        </p>
+                        <button 
+                            onclick="searchTripCom()"
+                            class="bg-gradient-to-r from-orange-500 to-yellow-600 hover:from-orange-600 hover:to-yellow-700 text-white font-semibold px-8 py-3 text-lg shadow-lg rounded-md transition-all"
+                        >
+                            🌟 TRY TRIP.COM - Alternative Search
+                        </button>
+                        <p class="text-xs text-gray-500 mt-3">
+                            Different platform, potentially different deals and airlines
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-r from-red-600 to-blue-600 rounded-lg flex items-center justify-center">
+                                <i data-lucide="plane" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <span class="text-xl font-bold">YYZ Flights</span>
+                        </div>
+                        <p class="text-gray-400">
+                            Toronto's premier flight booking platform, proudly partnered with TravelPayouts 
+                            to bring you the best deals on flights departing from YYZ.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>Flight Search</li>
+                            <li>Popular Destinations</li>
+                            <li>Travel Deals</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">About YYZ Flights</h4>
+                        <p class="text-gray-400">
+                            🍁 Proudly Canadian - serving travelers from Toronto Pearson International Airport (YYZ) 
+                            with the best flight deals worldwide through our TravelPayouts affiliate partnership.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; 2024 YYZ Flights. All rights reserved. Powered by TravelPayouts.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departureDate').setAttribute('min', today);
+        document.getElementById('returnDate').setAttribute('min', today);
+        
+        // Auto-uppercase destination input
+        document.getElementById('destination').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
+        
+        // Set destination function for popular buttons
+        function setDestination(code) {
+            document.getElementById('destination').value = code;
+        }
+        
+        // Form submission
+        document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const departureDate = document.getElementById('departureDate').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            
+            // Validation
+            if (!destination || !departureDate) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            if (destination.length !== 3 || !destination.match(/^[A-Z]{3}$/)) {
+                alert('Please enter a valid 3-letter airport code (e.g., LAX, JFK, LHR)');
+                return;
+            }
+            
+            // Build search URL
+            const searchParams = new URLSearchParams({
+                origin_iata: origin,
+                destination_iata: destination,
+                departure_at: departureDate,
+                adults: adults,
+                children: children,
+                infants: '0',
+                trip_class: 'Y',
+                marker: 'yyzflights'
+            });
+            
+            if (returnDate) {
+                searchParams.append('return_at', returnDate);
+            }
+            
+            const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
+            window.open(searchUrl, '_blank');
+        });
+        
+        // Trip.com alternative search
+        function searchTripCom() {
+            const departureDate = document.getElementById('departureDate').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            
+            const tripUrl = `https://www.trip.com/flights?dcity=YYZ&acity=&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}`;
+            window.open(tripUrl, '_blank');
+        }
+        
+        // Populate popular destinations
+        const popularDestinations = [
+            { destination: "LHR", city_name: "London", country: "United Kingdom", price: 850.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad" },
+            { destination: "CDG", city_name: "Paris", country: "France", price: 920.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1502602898536-47ad22581b52" },
+            { destination: "LAX", city_name: "Los Angeles", country: "United States", price: 450.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3" },
+            { destination: "NRT", city_name: "Tokyo", country: "Japan", price: 1200.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf" },
+            { destination: "YVR", city_name: "Vancouver", country: "Canada", price: 280.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1549940344-ca0ace547de5" },
+            { destination: "JFK", city_name: "New York", country: "United States", price: 380.00, currency: "CAD", airline: "AC", image_url: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9" }
+        ];
+        
+        function populateDestinations() {
+            const container = document.getElementById('popularDestinations');
+            popularDestinations.forEach(destination => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl border shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 destination-card';
+                card.innerHTML = `
+                    <div class="h-48 bg-cover bg-center rounded-t-lg" style="background-image: url('${destination.image_url}')"></div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h4 class="font-bold text-lg">${destination.city_name}</h4>
+                                <p class="text-sm text-gray-600">${destination.country}</p>
+                                <p class="text-xs text-gray-500">(${destination.destination})</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-xl text-blue-600">$${destination.price}</p>
+                                <p class="text-sm text-gray-600">${destination.currency}</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 my-3"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold">${destination.airline}</span>
+                            <button onclick="setDestination('${destination.destination}'); window.scrollTo({top: 0, behavior: 'smooth'});" class="text-sm border border-gray-300 rounded-md px-3 py-1 hover:bg-gray-50 transition-colors">
+                                Select Destination
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            populateDestinations();
+        });
+    </script>
+</body>
+</html>
