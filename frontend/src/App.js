@@ -247,31 +247,21 @@ function HomePage() {
                     {/* Destination */}
                     <div className="space-y-2">
                       <label className="text-sm font-medium">To</label>
-                      <Select
-                        value={searchForm.destination}
-                        onValueChange={(value) => setSearchForm({...searchForm, destination: value})}
-                      >
-                        <SelectTrigger data-testid="destination-select">
-                          <SelectValue placeholder="Select destination" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="LAX">LAX - Los Angeles, USA</SelectItem>
-                          <SelectItem value="JFK">JFK - New York, USA</SelectItem>
-                          <SelectItem value="LHR">LHR - London, UK</SelectItem>
-                          <SelectItem value="CDG">CDG - Paris, France</SelectItem>
-                          <SelectItem value="NRT">NRT - Tokyo, Japan</SelectItem>
-                          <SelectItem value="YVR">YVR - Vancouver, Canada</SelectItem>
-                          <SelectItem value="MIA">MIA - Miami, USA</SelectItem>
-                          <SelectItem value="FCO">FCO - Rome, Italy</SelectItem>
-                          <SelectItem value="SYD">SYD - Sydney, Australia</SelectItem>
-                          <SelectItem value="DXB">DXB - Dubai, UAE</SelectItem>
-                          <SelectItem value="BOM">BOM - Mumbai, India</SelectItem>
-                          <SelectItem value="AMS">AMS - Amsterdam, Netherlands</SelectItem>
-                          <SelectItem value="FRA">FRA - Frankfurt, Germany</SelectItem>
-                          <SelectItem value="MAD">MAD - Madrid, Spain</SelectItem>
-                          <SelectItem value="BCN">BCN - Barcelona, Spain</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="relative">
+                        <Input
+                          type="text"
+                          placeholder="Enter destination (e.g., LAX, LHR, CDG)"
+                          value={searchForm.destination}
+                          onChange={(e) => setSearchForm({...searchForm, destination: e.target.value.toUpperCase()})}
+                          className="pl-10"
+                          data-testid="destination-input"
+                          maxLength="3"
+                        />
+                        <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        Enter 3-letter airport code (LAX, JFK, LHR, etc.)
+                      </div>
                     </div>
 
                     {/* Departure Date */}
