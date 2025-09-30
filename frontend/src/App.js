@@ -69,8 +69,16 @@ function HomePage() {
 
   const handleFlightSearch = async (e) => {
     e.preventDefault();
+    
+    // Validation
     if (!searchForm.destination || !searchForm.departureDate) {
       toast.error('Please fill in all required fields');
+      return;
+    }
+    
+    // Validate destination is 3-letter airport code
+    if (searchForm.destination.length !== 3 || !searchForm.destination.match(/^[A-Z]{3}$/)) {
+      toast.error('Please enter a valid 3-letter airport code (e.g., LAX, JFK, LHR)');
       return;
     }
 
@@ -97,7 +105,7 @@ function HomePage() {
       // Redirect to your TravelPayouts white-label search
       const searchUrl = `https://search.yyzflights.com/?${searchParams.toString()}`;
       
-      toast.success('Redirecting to flight search...');
+      toast.success(`Searching flights to ${searchForm.destination}...`);
       
       // Open in new tab to maintain the main site
       window.open(searchUrl, '_blank');
