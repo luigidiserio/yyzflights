@@ -1358,7 +1358,7 @@
             }
         }
         
-        // Form submission
+        // Form submission with TravelPayouts tracking
         document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1403,15 +1403,21 @@
                 }
             }
             
-            // Build search URL to match your current site's format
+            // Build TravelPayouts search URL with all tracking parameters
             const searchParams = new URLSearchParams({
                 depart_date: departureDate,
                 origin_iata: originCode,
                 destination_iata: destinationCode,
-                currency: 'cad',
+                currency: 'usd',
                 language: 'en',
                 with_request: 'true',
-                locale: 'en'
+                locale: 'en',
+                // Critical TravelPayouts tracking parameters
+                trs: '46890',
+                shmarker: '48749',
+                marker: '48749',
+                promo_id: '7879',
+                campaign_id: '100'
             });
             
             if (returnDate) {
@@ -1426,16 +1432,32 @@
                 searchParams.append('children', children);
             }
             
-            // This will perform the actual search on search.yyzflights.com with your format
+            // Use proper TravelPayouts tracked URL
             const searchUrl = `https://search.yyzflights.com/flights?${searchParams.toString()}`;
-            console.log('Performing search with YYZ format:', {
+            
+            console.log('TravelPayouts tracked search:', {
                 origin: originCode,
                 destination: destinationCode,
                 departureDate: departureDate,
                 returnDate: returnDate,
                 adults: adults,
-                children: children
+                children: children,
+                trs: '46890',
+                shmarker: '48749',
+                promo_id: '7879',
+                campaign_id: '100'
             });
+            
+            // Track the search event for analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'flight_search', {
+                    'origin': originCode,
+                    'destination': destinationCode,
+                    'departure_date': departureDate,
+                    'return_date': returnDate || '',
+                    'passengers': parseInt(adults) + parseInt(children)
+                });
+            }
             
             window.open(searchUrl, '_blank');
         });
