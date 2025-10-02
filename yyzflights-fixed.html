@@ -1529,7 +1529,7 @@
             resultDiv.style.display = 'block';
         });
         
-        // Trip.com alternative search
+        // Trip.com alternative search with TravelPayouts tracking
         function searchTripCom() {
             const originValue = originInput.value.trim();
             const destinationValue = destinationInput.value.trim();
@@ -1559,8 +1559,22 @@
                 }
             }
             
-            const tripUrl = `https://www.trip.com/flights?dcity=${originCode}&acity=${destinationCode || ''}&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}&marker=48749`;
-            console.log('Opening Trip.com URL:', tripUrl);
+            // Include TravelPayouts tracking parameters for Trip.com
+            const tripUrl = `https://www.trip.com/flights?dcity=${originCode}&acity=${destinationCode || ''}&date1=${departureDate}&date2=${returnDate}&adult=${adults}&child=${children}&marker=48749&trs=46890&promo_id=7879&campaign_id=100`;
+            
+            console.log('Opening Trip.com URL with TravelPayouts tracking:', tripUrl);
+            
+            // Track the alternative search for analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'trip_com_search', {
+                    'origin': originCode,
+                    'destination': destinationCode,
+                    'departure_date': departureDate,
+                    'return_date': returnDate || '',
+                    'passengers': parseInt(adults) + parseInt(children)
+                });
+            }
+            
             window.open(tripUrl, '_blank');
         }
         
